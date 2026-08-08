@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحتي | المستر</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-protected="student">
+
+<header class="site-nav">
+  <div class="nav-row">
+    <a href="index.html" class="brand"><span class="seal-mini">م</span> المستر</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#courses">الكورسات</a>
+      <a href="index.html#contact">تواصل معنا</a>
+    </nav>
+    <div class="nav-cta">
+      <span style="font-family:Cairo;font-weight:700;font-size:.9rem" data-user-name></span>
+      <button class="btn btn-ghost btn-sm" data-logout>خروج</button>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="dash-wrap">
+  <div class="container">
+    <div class="dash-head">
+      <div>
+        <div class="eyebrow">لوحة الطالب</div>
+        <h2>كورساتي</h2>
+      </div>
+    </div>
+    <div class="grid grid-3" id="myCoursesGrid">
+      <div class="empty-state">جاري التحميل...</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>
