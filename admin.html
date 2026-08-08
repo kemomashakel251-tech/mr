@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة تحكم الأدمن | المستر</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+<!-- ============ شاشة دخول الأدمن ============ -->
+<div class="admin-login-wrap" id="adminLoginScreen">
+  <div class="admin-login-card">
+    <div class="seal-mini">م</div>
+    <h3 style="margin-bottom:6px">دخول لوحة التحكم</h3>
+    <p class="sub" style="color:var(--paper-dim); font-size:.85rem; margin-bottom:24px">للإدارة فقط</p>
+    <form id="adminLoginForm">
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="adminEmail" required>
+      </div>
+      <div class="field">
+        <label>كلمة السر</label>
+        <input type="password" id="adminPass" required>
+      </div>
+      <button type="submit" class="btn btn-gold btn-block">دخول</button>
+      <div class="form-msg" id="adminLoginMsg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ التطبيق الرئيسي (يظهر بعد التحقق) ============ -->
+<div id="adminApp" class="hidden" style="display:none; width:100%">
+<aside class="admin-sidebar">
+  <div class="brand"><span class="seal-mini">م</span> المستر</div>
+  <button class="admin-nav-item active" data-panel="panel-overview">نظرة عامة</button>
+  <button class="admin-nav-item" data-panel="panel-content">محتوى الصفحة الرئيسية</button>
+  <button class="admin-nav-item" data-panel="panel-courses">الكورسات والمجموعات</button>
+  <button class="admin-nav-item" data-panel="panel-teachers">المدرسين</button>
+  <button class="admin-nav-item" data-panel="panel-requests">طلبات الاشتراك</button>
+  <button class="admin-nav-item" data-panel="panel-students">الطلاب</button>
+  <button class="admin-nav-item" data-panel="panel-testimonials">آراء الطلاب</button>
+  <div class="logout-row">
+    <button class="admin-nav-item" data-logout>🚪 تسجيل الخروج</button>
+  </div>
+</aside>
+
+<main class="admin-main">
+
+  <!-- ===== نظرة عامة ===== -->
+  <section class="admin-panel active" id="panel-overview">
+    <div class="admin-topbar"><h2>نظرة عامة</h2></div>
+    <div class="stat-row">
+      <div class="stat-box"><b id="ovCourses">0</b><span>كورس</span></div>
+      <div class="stat-box"><b id="ovTeachers">0</b><span>مدرس</span></div>
+      <div class="stat-box"><b id="ovStudents">0</b><span>طالب مسجل</span></div>
+      <div class="stat-box"><b id="ovPending">0</b><span>طلب اشتراك معلّق</span></div>
+    </div>
+  </section>
+
+  <!-- ===== محتوى الصفحة الرئيسية ===== -->
+  <section class="admin-panel" id="panel-content">
+    <div class="admin-topbar"><h2>محتوى الصفحة الرئيسية</h2></div>
+    <form id="siteContentForm" style="max-width:600px">
+      <div class="field"><label>عنوان البانر الرئيسي</label><input id="scHeroTitle" placeholder="افهم صح، وذاكر مع"></div>
+      <div class="field"><label>الكلمة المميزة (باللون الذهبي)</label><input id="scHeroHighlight" placeholder="المستر"></div>
+      <div class="field"><label>الوصف تحت العنوان</label><textarea id="scHeroLead" rows="3"></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>رقم إحصائية 1</label><input id="scStat1Num" placeholder="+120"></div>
+        <div class="field"><label>وصف إحصائية 1</label><input id="scStat1Label" placeholder="كورس تعليمي"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>رقم إحصائية 2</label><input id="scStat2Num" placeholder="+15"></div>
+        <div class="field"><label>وصف إحصائية 2</label><input id="scStat2Label" placeholder="مدرس"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>رقم إحصائية 3</label><input id="scStat3Num" placeholder="+8000"></div>
+        <div class="field"><label>وصف إحصائية 3</label><input id="scStat3Label" placeholder="طالب"></div>
+      </div>
+      <button type="submit" class="btn btn-gold">حفظ التعديلات</button>
+      <div class="form-msg" id="scMsg"></div>
+    </form>
+  </section>
+
+  <!-- ===== الكورسات ===== -->
+  <section class="admin-panel" id="panel-courses">
+    <div class="admin-topbar">
+      <h2>الكورسات والمجموعات</h2>
+      <button class="btn btn-gold btn-sm" data-open-modal="courseModal" onclick="openCourseModal()">+ كورس جديد</button>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>الاسم</th><th>المرحلة</th><th>السعر</th><th>الحالة</th><th>دروس</th><th></th></tr></thead>
+        <tbody id="coursesTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== المدرسين ===== -->
+  <section class="admin-panel" id="panel-teachers">
+    <div class="admin-topbar">
+      <h2>المدرسين</h2>
+      <button class="btn btn-gold btn-sm" onclick="openTeacherModal()">+ مدرس جديد</button>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>الاسم</th><th>المادة</th><th></th></tr></thead>
+        <tbody id="teachersTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== طلبات الاشتراك ===== -->
+  <section class="admin-panel" id="panel-requests">
+    <div class="admin-topbar"><h2>طلبات الاشتراك</h2></div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>الطالب</th><th>الكورس</th><th>الحالة</th><th></th></tr></thead>
+        <tbody id="requestsTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== الطلاب ===== -->
+  <section class="admin-panel" id="panel-students">
+    <div class="admin-topbar"><h2>الطلاب</h2></div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>الاسم</th><th>الإيميل</th><th>الموبايل</th><th>عدد الكورسات</th></tr></thead>
+        <tbody id="studentsTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== آراء الطلاب ===== -->
+  <section class="admin-panel" id="panel-testimonials">
+    <div class="admin-topbar">
+      <h2>آراء الطلاب</h2>
+      <button class="btn btn-gold btn-sm" onclick="openTestimonialModal()">+ رأي جديد</button>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>الاسم</th><th>الرأي</th><th></th></tr></thead>
+        <tbody id="testimonialsTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<!-- ============ مودال: إضافة/تعديل كورس ============ -->
+<div class="overlay" id="courseModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h3 id="courseModalTitle">كورس جديد</h3>
+    <form id="courseForm">
+      <input type="hidden" id="courseId">
+      <div class="field"><label>اسم الكورس</label><input id="cTitle" required></div>
+      <div class="field-row">
+        <div class="field"><label>المرحلة الدراسية</label><input id="cStage" placeholder="مثال: الصف الثالث الثانوي"></div>
+        <div class="field"><label>السعر (ج.م)</label><input id="cPrice" type="number"></div>
+      </div>
+      <div class="field"><label>الوصف</label><textarea id="cDesc" rows="3"></textarea></div>
+      <div class="field">
+        <label>الحالة</label>
+        <select id="cActive">
+          <option value="true">منشور</option>
+          <option value="false">مخفي</option>
+        </select>
+      </div>
+      <div class="lessons-box">
+        <label style="display:block; margin-bottom:8px; font-size:.82rem; color:var(--paper-dim)">دروس الكورس (رابط الفيديو)</label>
+        <div id="lessonsList"></div>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="addLessonRow()">+ إضافة درس</button>
+      </div>
+      <button type="submit" class="btn btn-gold btn-block mt-40">حفظ الكورس</button>
+      <div class="form-msg" id="courseMsg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ مودال: إضافة/تعديل مدرس ============ -->
+<div class="overlay" id="teacherModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h3 id="teacherModalTitle">مدرس جديد</h3>
+    <form id="teacherForm">
+      <input type="hidden" id="teacherId">
+      <div class="field"><label>الاسم</label><input id="tName" required></div>
+      <div class="field"><label>المادة</label><input id="tSubject"></div>
+      <div class="field"><label>نبذة</label><textarea id="tBio" rows="2"></textarea></div>
+      <button type="submit" class="btn btn-gold btn-block">حفظ</button>
+      <div class="form-msg" id="teacherMsg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ مودال: رأي طالب ============ -->
+<div class="overlay" id="testimonialModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h3>رأي طالب جديد</h3>
+    <form id="testimonialForm">
+      <input type="hidden" id="testimonialId">
+      <div class="field"><label>اسم الطالب</label><input id="tsName" required></div>
+      <div class="field"><label>الصفة</label><input id="tsRole" placeholder="مثال: طالب ثانوية عامة"></div>
+      <div class="field"><label>الرأي</label><textarea id="tsText" rows="3" required></textarea></div>
+      <button type="submit" class="btn btn-gold btn-block">حفظ</button>
+      <div class="form-msg" id="testimonialMsg"></div>
+    </form>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="main.js"></script>
+<script src="admin-panel.js"></script>
+</body>
+</html>
