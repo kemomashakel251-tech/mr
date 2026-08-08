@@ -1,206 +1,219 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="htmlTag">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>yourplace_مكانك</title>
-<meta name="description" content="تسوق أحدث المنتجات من متجر مكانك — توصيل سريع والدفع عند الاستلام">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap"></noscript>
-<link rel="stylesheet" href="style.css">
-
-<!-- Facebook Pixel Code (initialized later with the ID saved in store settings) -->
-<script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-  document,'script','https://connect.facebook.net/en_US/fbevents.js');
-</script>
-
-<!-- TikTok Pixel Code (initialized later with the ID saved in store settings) -->
-<script>
-  !function (w, d, t) {
-    w.TMTK = w.TMTK || [];
-    var ttq = w.TMTK;
-    ttq.methods = ["page","track","identify"];
-    ttq.setAndDefer = function(target, method){ target[method] = function(){ target.push([method].concat(Array.prototype.slice.call(arguments,0))); }; };
-    for (var i = 0; i < ttq.methods.length; i++) { ttq.setAndDefer(ttq, ttq.methods[i]); }
-    ttq.load = function(sdkid) {
-      var s = d.createElement(t); s.async = !0; s.src = "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=" + sdkid;
-      var a = d.getElementsByTagName(t)[0]; a.parentNode.insertBefore(s, a);
-    };
-  }(window, document, "script");
-</script>
+<title>المستر | منصة تعليمية أونلاين</title>
+<meta name="description" content="منصة المستر التعليمية — كورسات ومجموعات أونلاين مع نخبة من المدرسين لكل المراحل الدراسية">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<div id="toast"></div>
-<a id="waFloat" class="float" target="_blank"><svg viewBox="0 0 24 24" width="26" height="26" fill="#fff"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.8 14.14c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.95-.31-1.64-.61-2.88-1.24-4.76-4.15-4.9-4.35-.14-.19-1.17-1.56-1.17-2.98s.75-2.11 1.01-2.4c.26-.28.58-.35.77-.35l.55.01c.18.01.42-.07.65.5.24.58.82 2.01.9 2.15.07.15.12.32.02.51-.1.19-.15.32-.29.49-.14.17-.3.39-.43.53-.14.15-.29.3-.13.59.17.28.74 1.22 1.58 1.98 1.09.97 2.01 1.27 2.29 1.42.29.14.46.12.63-.08.17-.2.73-.85.93-1.14.19-.29.38-.24.65-.14.26.09 1.67.79 1.96.93.29.14.48.21.55.34.07.13.07.73-.17 1.43z"/></svg></a>
 
-<button id="botFloat" class="bot-float" onclick="toggleBotPanel()" title="مساعد المتجر">🤖<span class="bot-badge" id="botBadge"></span></button>
-<div class="bot-panel" id="botPanel">
-  <div class="bot-header">
-    <b>🤖 مساعد <span id="botStoreName">المتجر</span></b>
-    <button class="btn small gray" style="margin:0;padding:4px 10px" onclick="toggleBotPanel()">X</button>
-  </div>
-  <div class="bot-messages" id="botMessages"></div>
-  <div class="bot-quick" id="botQuick"></div>
-  <div class="bot-input-row">
-    <input id="botInput" placeholder="اكتب سؤالك..." onkeydown="if(event.key==='Enter')sendBotMsg()">
-    <button class="btn small" onclick="sendBotMsg()">إرسال</button>
-  </div>
-</div>
-
-<header>
-  <div class="container header-inner">
-    <a href="index.html" style="text-decoration:none;color:inherit"><h2 id="sName">yourplace_مكانك</h2></a>
-    <nav class="store-nav">
-      <button class="btn small gray" onclick="toggleLang()" id="langBtn" style="margin:0; font-size:13px">EN</button>
-      <a href="index.html"><span data-key="nav_store">المتجر</span></a>
-      <a href="about.html">ℹ️ <span data-key="nav_about">من نحن</span></a>
-      <a id="navShipPolicy" href="shipping-policy.html" style="display:none">📦 <span data-key="nav_ship_policy">سياسة الشحن</span></a>
-      <a href="cart.html"><span data-key="nav_cart">السلة</span> 🛒 <b class="cart-badge">0</b></a>
+<!-- ===== Header ===== -->
+<header class="site-nav">
+  <div class="nav-row">
+    <a href="#top" class="brand">
+      <span class="seal-mini">م</span>
+      المستر
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#courses">الكورسات</a>
+      <a href="#teachers">المدرسين</a>
+      <a href="#testimonials">آراء الطلاب</a>
+      <a href="#contact">تواصل معنا</a>
     </nav>
+    <div class="nav-cta">
+      <a href="dashboard.html" class="btn btn-ghost btn-sm hidden" data-user-only>لوحتي</a>
+      <button class="btn btn-ghost btn-sm hidden" data-user-only data-logout>خروج</button>
+      <button class="btn btn-ghost btn-sm" data-guest-only data-open-modal="loginModal">دخول</button>
+      <button class="btn btn-gold btn-sm" data-guest-only data-open-modal="registerModal">اشترك الآن</button>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
   </div>
 </header>
 
-<div class="container">
-  <div id="storeCatBar" class="store-cat-bar"></div>
-  <div id="grid" class="products">جاري تحميل المنتجات...</div>
-</div>
+<!-- ===== Hero ===== -->
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">منصة تعليمية موثوقة</div>
+      <h1 id="heroTitle">افهم صح، وذاكر مع <span id="heroHighlight">المستر</span></h1>
+      <p class="lead" id="heroLead">مجموعات أونلاين وكورسات مسجّلة مع نخبة من المدرسين، متابعة أول بأول لمستواك، وشرح يوصلك المعلومة بأسهل طريقة.</p>
+      <div class="hero-actions">
+        <button class="btn btn-gold" data-guest-only data-open-modal="registerModal">ابدأ دلوقتي</button>
+        <a href="#courses" class="btn btn-ghost">تصفح الكورسات</a>
+      </div>
+      <div class="hero-stats">
+        <div><b id="stat1Num">+120</b><span id="stat1Label">كورس تعليمي</span></div>
+        <div><b id="stat2Num">+15</b><span id="stat2Label">مدرس متخصص</span></div>
+        <div><b id="stat3Num">+8000</b><span id="stat3Label">طالب مستفيد</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="seal">
+        <div class="seal-core">
+          <b>المستر</b>
+          <span>ختم الجودة التعليمية</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div id="storeAboutSection" class="box" style="max-width:650px; margin:24px auto 0; display:none">
-  <h3 style="text-align:center; margin-top:0">من نحن</h3>
-  <div id="storeAboutTextBox" style="font-size:16px; line-height:1.9; color:#333; white-space:pre-line; text-align:center; margin-bottom:10px"></div>
-  <div id="storeAboutPhonesSection" style="display:none">
-    <hr>
-    <h4 style="margin-bottom:10px">📞 أرقامنا</h4>
-    <div id="storeAboutPhonesList" style="display:flex; flex-direction:column; gap:10px"></div>
+<!-- ===== Courses ===== -->
+<section id="courses">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">المحتوى التعليمي</div>
+        <h2>الكورسات والمجموعات المتاحة</h2>
+      </div>
+      <p>اختار المادة والمرحلة المناسبة لك وابدأ رحلة المذاكرة بطريقة منظمة.</p>
+    </div>
+    <div class="grid grid-3" id="coursesGrid">
+      <div class="empty-state">جاري تحميل الكورسات...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Teachers ===== -->
+<section id="teachers" style="background:var(--ink-2)">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">فريق التدريس</div>
+        <h2>المدرسين</h2>
+      </div>
+      <p>نخبة من المدرسين المتخصصين في مختلف المواد والمراحل الدراسية.</p>
+    </div>
+    <div class="grid grid-3" id="teachersGrid">
+      <div class="empty-state">جاري التحميل...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Testimonials ===== -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">قالوا عننا</div>
+        <h2>آراء الطلاب</h2>
+      </div>
+    </div>
+    <div class="grid grid-3" id="testimonialsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" style="background:var(--ink-2)">
+  <div class="container text-center reveal">
+    <div class="eyebrow" style="justify-content:center">تواصل معنا</div>
+    <h2 style="margin-bottom:16px">عندك سؤال؟ إحنا موجودين</h2>
+    <p style="color:var(--paper-dim); max-width:480px; margin:0 auto 30px">
+      كلمنا على واتساب أو تابعنا على السوشيال ميديا لآخر تحديثات الكورسات والمواعيد.
+    </p>
+    <a href="https://wa.me/201000000000" target="_blank" class="btn btn-gold">تواصل عبر واتساب</a>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px">
+          <span class="seal-mini">م</span> المستر
+        </div>
+        <p style="max-width:280px; font-size:.88rem">منصة تعليمية أونلاين بتساعدك تذاكر صح وتوصل لأعلى الدرجات.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4>روابط</h4>
+          <a href="#courses">الكورسات</a>
+          <a href="#teachers">المدرسين</a>
+          <a href="#contact">تواصل معنا</a>
+        </div>
+        <div>
+          <h4>حسابي</h4>
+          <a href="#" data-guest-only data-open-modal="loginModal">دخول</a>
+          <a href="#" data-guest-only data-open-modal="registerModal">حساب جديد</a>
+          <a href="dashboard.html" class="hidden" data-user-only>لوحة التحكم</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 المستر. جميع الحقوق محفوظة.</span>
+      <span>صُنعت بشغف لأجل التعليم</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Login Modal ===== -->
+<div class="overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h3>تسجيل الدخول</h3>
+    <p class="sub">سعداء برجوعك تاني</p>
+    <form id="loginForm">
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="loginEmail" required>
+      </div>
+      <div class="field">
+        <label>كلمة السر</label>
+        <input type="password" id="loginPass" required>
+      </div>
+      <button type="submit" class="btn btn-gold btn-block">دخول</button>
+      <div class="form-msg" id="loginMsg"></div>
+    </form>
+    <div class="switch-line">
+      لسه معملتش حساب؟
+      <a href="#" data-switch-modal="registerModal" data-switch-from="loginModal">سجل دلوقتي</a>
+    </div>
   </div>
 </div>
 
-<div id="socialIconsBar"></div>
+<!-- ===== Register Modal ===== -->
+<div class="overlay" id="registerModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h3>إنشاء حساب جديد</h3>
+    <p class="sub">سجل وابدأ رحلتك التعليمية</p>
+    <form id="registerForm">
+      <div class="field">
+        <label>الاسم بالكامل</label>
+        <input type="text" id="regName" required>
+      </div>
+      <div class="field">
+        <label>رقم الموبايل</label>
+        <input type="tel" id="regPhone" required>
+      </div>
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="regEmail" required>
+      </div>
+      <div class="field">
+        <label>كلمة السر</label>
+        <input type="password" id="regPass" required minlength="6">
+      </div>
+      <button type="submit" class="btn btn-gold btn-block">إنشاء الحساب</button>
+      <div class="form-msg" id="registerMsg"></div>
+    </form>
+    <div class="switch-line">
+      عندك حساب بالفعل؟
+      <a href="#" data-switch-modal="loginModal" data-switch-from="registerModal">دخول</a>
+    </div>
+  </div>
+</div>
 
-<script src="shared.js"></script>
-<script>
-// لو المنتج عنده لون أو مقاس، بنودّي العميل لصفحة المنتج الأول عشان يختار
-// قبل ما يتضاف للسلة (خصوصًا مع تفعيل "تخطي السلة" اللي كان بياخد العميل على
-// طول لصفحة الدفع من غير ما يشوف صفحة المنتج خالص). المنتجات البسيطة (من
-// غير ألوان/مقاسات) بتتضاف زي ما هي على طول من غير تنقل.
-function addOrGoToProduct(id){
-  let p = PROD.find(x => x.id == id);
-  if(p && ((p.cl && p.cl.length) || (p.sz && p.sz.length))){
-    window.location.href = 'product.html?id=' + id;
-    return;
-  }
-  addC(id);
-}
-
-function drawStore(){
-  stopMediaAutoplay();
-  let grid = document.getElementById('grid');
-  let filtered = PROD.filter(x => x.active !== false && (currentFilter === 'all' || x.cat === currentFilter));
-  if(filtered.length === 0){ grid.innerHTML='<p style="text-align:center;color:var(--muted)">لا توجد منتجات حالياً في هذا القسم</p>'; return; }
-
-  grid.innerHTML = filtered.map((x, prodIdx) => {
-    let priceHtml = x.disc && x.disc < x.v
-      ? `<div class="price"><span style="text-decoration:line-through;color:var(--muted);font-size:14px">${x.v}</span> ${x.disc} ${i18n[LANG].currency}</div>`
-      : `<div class="price">${x.v} ${i18n[LANG].currency}</div>`;
-    let stockHtml = x.showStock && x.stock>0? `<div class="stock ${x.stock<5?'low':''}"> ${LANG=='ar'?'متبقي':'Remaining'} ${x.stock} ${i18n[LANG].pcs}</div>` : x.showStock && x.stock==0? `<div class="stock low">${LANG=='ar'?'نفذت الكمية':'Out of Stock'}</div>` : '';
-    let btnDisabled = x.stock<=0? 'disabled' : '';
-
-    let fakeCounterHtml = '';
-    if(SET.fakeCounterOn) {
-       let fakeBuyers = Math.floor(Math.random() * 12) + 4;
-       let fakeStock = Math.floor(Math.random() * parseInt(SET.fakeCounterNum)) + 2;
-       fakeCounterHtml = LANG === 'ar'
-         ? `<div style="color:red;font-size:12px;margin-top:5px">🔥 قام ${fakeBuyers} أشخاص بطلب هذا اليوم</div><div style="color:green;font-size:12px">متبقي ${fakeStock} قطع فقط في المخزن!</div>`
-         : `<div style="color:red;font-size:12px;margin-top:5px">🔥 ${fakeBuyers} person ordered this today</div><div style="color:green;font-size:12px">Only ${fakeStock} items left in stock!</div>`;
-    }
-
-    let mediaList = x.media || [];
-    if(mediaList.length === 0) mediaList = [{type:'image', src:'https://via.placeholder.com/200'}];
-
-    let mediaItemsHtml = mediaList.map((m, i) => {
-      let activeClass = i === 0 ? 'active' : '';
-      let priorityAttr = (prodIdx === 0 && i === 0) ? 'fetchpriority="high"' : 'loading="lazy"';
-      return m.type === 'video' ? `<video src="${m.src}" ${priorityAttr} class="media-item-${prodIdx} ${activeClass}" controls muted></video>` : `<img src="${m.src}" ${priorityAttr} alt="${esc(x.n)}" class="media-item-${prodIdx} ${activeClass}">`;
-    }).join('');
-
-    let navHtml = mediaList.length > 1 ? `<button class="media-nav prev" onclick="event.stopPropagation();slideMedia(${prodIdx}, -1)">&#10095;</button><button class="media-nav next" onclick="event.stopPropagation();slideMedia(${prodIdx}, 1)">&#10094;</button>` : '';
-    let dotsHtml = mediaList.length > 1 ? `<div class="media-dots">${mediaList.map((m,i)=>`<span class="${i===0?'active':''}"></span>`).join('')}</div>` : '';
-    let landingBtnHtml = (x.customLandingUrl && x.customLandingUrl.trim() !== '') ? `<button class="btn gray" style="margin-top:5px; font-size:13px; padding:6px; font-weight:bold; border: 1px solid var(--main);" onclick="window.open('${x.customLandingUrl}', '_blank')">👁️ رابط صفحة الهبوط المخصصة</button>` : '';
-
-    let bulkDiscountTextHtml = x.bulk_on ? (LANG === 'ar' ? `<div style="background:#fff3cd;color:#856404;padding:6px;border-radius:8px;font-size:12px;font-weight:700;margin:6px 0;text-align:center">🔥 اشتري ${x.bulk_qty} قطع ووفر ${x.bulk_disc}%</div>` : `<div style="background:#fff3cd;color:#856404;padding:6px;border-radius:8px;font-size:12px;font-weight:700;margin:6px 0;text-align:center">🔥 Buy ${x.bulk_qty} pieces and save ${x.bulk_disc}%</div>`) : '';
-
-    return `
-      <div class="card">
-        <div class="media-container" id="mediaCont${prodIdx}" style="cursor:pointer" onclick="location.href='product.html?id=${x.id}'">${mediaItemsHtml}${navHtml}${dotsHtml}</div>
-        <h4 style="cursor:pointer" onclick="location.href='product.html?id=${x.id}'">${esc(x.n)}</h4>
-        <p>${x.d ? esc(x.d.substring(0,40)) : ''}...</p>
-        ${priceHtml}${stockHtml}${fakeCounterHtml}
-        <button class="btn" onclick="addOrGoToProduct('${x.id}')" ${btnDisabled}>${LANG=='ar'?'اضف للسلة':'Add to Cart'}</button>
-        ${landingBtnHtml}${bulkDiscountTextHtml}
-      </div>`;
-  }).join('');
-
-  startMediaAutoplay();
-}
-
-// أوتوبلاي كروسفيد لصور/فيديوهات كل كارت: كل كارت ليه مؤقت خاص بيه، بيتوقف
-// مؤقتًا لو الماوس فوق الكارت (عشان المستخدم يقدر يتصفح براحته)، وبيتوقف
-// خالص لما الصفحة تترسم تاني عشان مايتراكمش مؤقتات من كروت اتشالت من الـ DOM.
-let MEDIA_TIMERS = {};
-function stopMediaAutoplay(){
-  Object.values(MEDIA_TIMERS).forEach(id => clearInterval(id));
-  MEDIA_TIMERS = {};
-}
-function startMediaAutoplay(){
-  document.querySelectorAll('.media-container').forEach(cont => {
-    let prodIdx = cont.id.replace('mediaCont', '');
-    let items = cont.querySelectorAll(`.media-item-${prodIdx}`);
-    if(items.length <= 1) return;
-    MEDIA_TIMERS[prodIdx] = setInterval(() => slideMedia(+prodIdx, 1), 3500);
-    cont.addEventListener('mouseenter', () => clearInterval(MEDIA_TIMERS[prodIdx]));
-    cont.addEventListener('mouseleave', () => { MEDIA_TIMERS[prodIdx] = setInterval(() => slideMedia(+prodIdx, 1), 3500); });
-  });
-}
-
-function slideMedia(prodIdx, direction) {
-  let container = document.getElementById(`mediaCont${prodIdx}`);
-  let items = container.querySelectorAll(`.media-item-${prodIdx}`);
-  let activeIdx = Array.from(items).findIndex(el => el.classList.contains('active'));
-  items[activeIdx].classList.remove('active');
-  if(items[activeIdx].tagName === 'VIDEO') items[activeIdx].pause();
-  let nextIdx = activeIdx + direction;
-  if(nextIdx >= items.length) nextIdx = 0;
-  if(nextIdx < 0) nextIdx = items.length - 1;
-  items[nextIdx].classList.add('active');
-
-  let dots = container.querySelectorAll('.media-dots span');
-  if(dots.length){
-    dots.forEach(d => d.classList.remove('active'));
-    if(dots[nextIdx]) dots[nextIdx].classList.add('active');
-  }
-}
-
-window.onSettingsLoaded = function(){ drawStore(); };
-window.onProductsLoaded = function(){ drawStore(); };
-window.onLangChange = function(){ drawStore(); };
-window.onCartChange = function(){};
-
-let pendingCat = localStorage.getItem('pendingCatFilter');
-if(pendingCat){ currentFilter = pendingCat; localStorage.removeItem('pendingCatFilter'); }
-
-updateCartBadge();
-renderCartDrawer();
-updateLangDOM();
-if(PROD.length) drawStore(); // ارسم فورًا من الكاش لو موجود، قبل ما نستنى Firebase
-initApp();
-</script>
+<!-- ===== Scripts ===== -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/courses.js"></script>
 </body>
 </html>
