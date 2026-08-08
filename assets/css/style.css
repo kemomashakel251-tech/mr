@@ -1,0 +1,341 @@
+/* =========================================================
+   المستر — Design tokens
+   لوحة الألوان: حبر أزرق ليلي + ورق طباشيري + ذهب الختم
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Tajawal:wght@300;400;500;700&display=swap');
+
+:root{
+  --ink:        #10162B;
+  --ink-2:      #171E3A;
+  --ink-3:      #1E2648;
+  --paper:      #F3EFE4;
+  --paper-dim:  #C9C4B4;
+  --gold:       #D4A657;
+  --gold-2:     #E8C179;
+  --red-mark:   #C2452D;
+  --line:       rgba(243,239,228,.12);
+  --line-strong:rgba(243,239,228,.24);
+  --shadow:     0 20px 60px rgba(0,0,0,.35);
+  --radius-lg:  28px;
+  --radius-md:  16px;
+  --radius-sm:  10px;
+  --ease:       cubic-bezier(.22,1,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Tajawal',sans-serif;
+  line-height:1.7;
+  direction:rtl;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,.display{
+  font-family:'Cairo',sans-serif;
+  font-weight:900;
+  margin:0;
+  letter-spacing:-.01em;
+}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--gold);color:var(--ink);}
+
+.container{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 28px;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Cairo',sans-serif;
+  font-weight:700;
+  font-size:.8rem;
+  letter-spacing:.06em;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+.eyebrow::before{
+  content:'';
+  width:22px;height:1px;
+  background:var(--gold);
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:14px 30px;
+  border-radius:999px;
+  font-family:'Cairo',sans-serif;
+  font-weight:700;
+  font-size:.95rem;
+  border:1px solid transparent;
+  transition:transform .35s var(--ease), background .3s, border-color .3s, color .3s;
+}
+.btn:active{transform:scale(.96);}
+.btn-gold{
+  background:var(--gold);
+  color:var(--ink);
+}
+.btn-gold:hover{background:var(--gold-2); transform:translateY(-2px);}
+.btn-ghost{
+  border-color:var(--line-strong);
+  color:var(--paper);
+  background:transparent;
+}
+.btn-ghost:hover{border-color:var(--gold); color:var(--gold);}
+.btn-sm{padding:9px 18px; font-size:.82rem;}
+.btn-block{width:100%;}
+.btn-danger{background:var(--red-mark); color:var(--paper);}
+
+/* ---------- Nav ---------- */
+header.site-nav{
+  position:fixed; inset:0 0 auto 0; z-index:80;
+  background:linear-gradient(180deg, rgba(16,22,43,.92), rgba(16,22,43,.7));
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 28px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+  font-family:'Cairo',sans-serif; font-weight:900; font-size:1.3rem;
+}
+.brand .seal-mini{
+  width:34px;height:34px;border-radius:50%;
+  border:1.5px dashed var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold); font-size:.75rem; font-weight:900;
+}
+.nav-links{display:flex; gap:30px; align-items:center;
+  font-family:'Cairo',sans-serif; font-weight:600; font-size:.92rem;}
+.nav-links a{opacity:.85; transition:opacity .25s, color .25s;}
+.nav-links a:hover{opacity:1; color:var(--gold);}
+.nav-cta{display:flex; gap:12px; align-items:center;}
+.nav-toggle{display:none; background:none; border:none; color:var(--paper); font-size:1.6rem;}
+
+@media (max-width:860px){
+  .nav-links{
+    position:fixed; inset:72px 0 auto 0; flex-direction:column;
+    background:var(--ink-2); padding:24px 28px; gap:18px;
+    border-bottom:1px solid var(--line);
+    transform:translateY(-140%); opacity:0;
+    transition:transform .4s var(--ease), opacity .4s;
+  }
+  .nav-links.open{transform:translateY(0); opacity:1;}
+  .nav-toggle{display:block;}
+  .nav-cta .btn-ghost{display:none;}
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex; align-items:center;
+  padding:140px 0 90px;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute; inset:-20% -10% auto auto;
+  width:640px; height:640px;
+  background:radial-gradient(circle, rgba(212,166,87,.16), transparent 65%);
+  pointer-events:none;
+}
+.hero-grid{
+  display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:center;
+}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+
+.hero h1{
+  font-size:clamp(2.4rem, 5vw, 4rem);
+  line-height:1.15;
+}
+.hero h1 span{color:var(--gold);}
+.hero p.lead{
+  color:var(--paper-dim);
+  font-size:1.1rem;
+  max-width:520px;
+  margin:22px 0 34px;
+}
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+
+.hero-stats{
+  display:flex; gap:32px; margin-top:48px; flex-wrap:wrap;
+}
+.hero-stats div b{
+  display:block; font-family:'Cairo'; font-size:1.7rem; color:var(--gold);
+}
+.hero-stats div span{font-size:.82rem; color:var(--paper-dim);}
+
+/* signature: teacher's seal */
+.hero-visual{position:relative; display:flex; align-items:center; justify-content:center;}
+.seal{
+  width:min(360px, 78vw); aspect-ratio:1;
+  border-radius:50%;
+  border:2px dashed var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  animation:spin 40s linear infinite;
+}
+.seal::before{
+  content:'';
+  position:absolute; inset:22px;
+  border-radius:50%;
+  border:1px solid var(--line-strong);
+}
+.seal-core{
+  width:62%; aspect-ratio:1; border-radius:50%;
+  background:linear-gradient(155deg, var(--ink-3), var(--ink-2));
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; box-shadow:inset 0 0 40px rgba(212,166,87,.15);
+  animation:spin-rev 40s linear infinite;
+}
+.seal-core b{font-family:'Cairo'; font-size:2rem; color:var(--gold);}
+.seal-core span{font-size:.75rem; color:var(--paper-dim); margin-top:6px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes spin-rev{to{transform:rotate(-360deg);}}
+@media (prefers-reduced-motion:reduce){.seal,.seal-core{animation:none;}}
+
+/* ---------- Section shell ---------- */
+section{padding:110px 0;}
+.section-head{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:20px; margin-bottom:52px; flex-wrap:wrap;
+}
+.section-head h2{font-size:clamp(1.8rem,3.2vw,2.6rem);}
+.section-head p{color:var(--paper-dim); max-width:420px;}
+
+/* ---------- Course / Group cards ---------- */
+.grid{display:grid; gap:26px;}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+@media (max-width:980px){.grid-3{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:640px){.grid-3{grid-template-columns:1fr;}}
+
+.card{
+  background:var(--ink-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:26px;
+  transition:transform .4s var(--ease), border-color .4s;
+  position:relative;
+  overflow:hidden;
+}
+.card:hover{transform:translateY(-6px); border-color:var(--line-strong);}
+.card .tag{
+  display:inline-block; font-size:.72rem; font-weight:700;
+  font-family:'Cairo'; color:var(--gold);
+  border:1px solid rgba(212,166,87,.35);
+  padding:4px 12px; border-radius:999px; margin-bottom:16px;
+}
+.card h3{font-size:1.25rem; margin-bottom:10px;}
+.card p{color:var(--paper-dim); font-size:.92rem; margin-bottom:18px;}
+.card-foot{
+  display:flex; align-items:center; justify-content:space-between;
+  border-top:1px solid var(--line); padding-top:16px; margin-top:6px;
+}
+.price{font-family:'Cairo'; font-weight:800; color:var(--gold);}
+.price s{color:var(--paper-dim); font-weight:400; margin-left:6px; font-size:.85rem;}
+
+/* ---------- Teachers ---------- */
+.teacher-card{text-align:center;}
+.teacher-avatar{
+  width:88px; height:88px; border-radius:50%; margin:0 auto 16px;
+  background:linear-gradient(150deg,var(--gold),var(--red-mark));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cairo'; font-weight:900; font-size:1.6rem; color:var(--ink);
+}
+
+/* ---------- Testimonials ---------- */
+.quote-card{
+  background:var(--ink-2); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:28px;
+}
+.quote-card p{font-size:1.02rem; color:var(--paper);}
+.quote-card .who{margin-top:16px; font-family:'Cairo'; font-weight:700; color:var(--gold); font-size:.88rem;}
+
+/* ---------- Auth panel / modal ---------- */
+.overlay{
+  position:fixed; inset:0; background:rgba(8,10,20,.72);
+  backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center;
+  z-index:200; opacity:0; pointer-events:none; transition:opacity .3s;
+  padding:20px;
+}
+.overlay.open{opacity:1; pointer-events:auto;}
+.modal{
+  background:var(--ink-2); border:1px solid var(--line-strong);
+  border-radius:var(--radius-lg); padding:36px; width:100%; max-width:420px;
+  box-shadow:var(--shadow);
+  transform:translateY(16px); transition:transform .35s var(--ease);
+}
+.overlay.open .modal{transform:translateY(0);}
+.modal h3{font-size:1.4rem; margin-bottom:6px;}
+.modal .sub{color:var(--paper-dim); font-size:.85rem; margin-bottom:24px;}
+.field{margin-bottom:16px;}
+.field label{display:block; font-size:.82rem; color:var(--paper-dim); margin-bottom:6px;}
+.field input,.field select,.field textarea{
+  width:100%; padding:12px 14px; border-radius:var(--radius-sm);
+  border:1px solid var(--line-strong); background:var(--ink);
+  color:var(--paper); font-family:'Tajawal'; font-size:.95rem;
+  transition:border-color .25s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none; border-color:var(--gold);
+}
+.modal-close{
+  position:absolute; top:18px; left:18px;
+  background:none; border:none; color:var(--paper-dim); font-size:1.3rem;
+}
+.modal{position:relative;}
+.switch-line{margin-top:18px; text-align:center; font-size:.85rem; color:var(--paper-dim);}
+.switch-line a{color:var(--gold); font-weight:700;}
+.form-msg{font-size:.83rem; margin-top:10px; min-height:18px;}
+.form-msg.err{color:var(--red-mark);}
+.form-msg.ok{color:#7CC48F;}
+
+/* ---------- Footer ---------- */
+footer{
+  border-top:1px solid var(--line); padding:60px 0 30px; color:var(--paper-dim);
+}
+.footer-grid{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; margin-bottom:40px;}
+.footer-cols{display:flex; gap:60px; flex-wrap:wrap;}
+.footer-cols h4{font-size:.9rem; color:var(--paper); margin-bottom:14px;}
+.footer-cols a{display:block; margin-bottom:9px; font-size:.88rem; opacity:.8;}
+.footer-bottom{
+  border-top:1px solid var(--line); padding-top:24px; font-size:.8rem;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+}
+
+/* ---------- Dashboard (student) ---------- */
+.dash-wrap{padding:150px 0 100px; min-height:100vh;}
+.dash-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; flex-wrap:wrap; gap:16px;}
+.empty-state{
+  border:1px dashed var(--line-strong); border-radius:var(--radius-md);
+  padding:60px 30px; text-align:center; color:var(--paper-dim);
+}
+
+/* ---------- Utility ---------- */
+.hidden{display:none !important;}
+.text-center{text-align:center;}
+.mt-40{margin-top:40px;}
+.spinner{
+  width:22px;height:22px;border-radius:50%;
+  border:2.5px solid var(--line-strong); border-top-color:var(--gold);
+  animation:sp .8s linear infinite; display:inline-block;
+}
+@keyframes sp{to{transform:rotate(360deg);}}
+
+.reveal{opacity:0; transform:translateY(24px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
+.reveal.in{opacity:1; transform:translateY(0);}
