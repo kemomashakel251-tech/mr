@@ -96,6 +96,12 @@ async function loadSiteContentAdmin(){
   document.getElementById('scStat2Label').value = d.stat2Label || '';
   document.getElementById('scStat3Num').value = d.stat3Num || '';
   document.getElementById('scStat3Label').value = d.stat3Label || '';
+  document.getElementById('scWhatsapp').value = d.whatsapp || '';
+  document.getElementById('scFooterDesc').value = d.footerDesc || '';
+  document.getElementById('scFacebook').value = d.facebook || '';
+  document.getElementById('scInstagram').value = d.instagram || '';
+  document.getElementById('scYoutube').value = d.youtube || '';
+  document.getElementById('scTiktok').value = d.tiktok || '';
 }
 
 document.getElementById('siteContentForm').addEventListener('submit', async (e)=>{
@@ -112,6 +118,12 @@ document.getElementById('siteContentForm').addEventListener('submit', async (e)=
       stat2Label: document.getElementById('scStat2Label').value,
       stat3Num: document.getElementById('scStat3Num').value,
       stat3Label: document.getElementById('scStat3Label').value,
+      whatsapp: document.getElementById('scWhatsapp').value.trim(),
+      footerDesc: document.getElementById('scFooterDesc').value.trim(),
+      facebook: document.getElementById('scFacebook').value.trim(),
+      instagram: document.getElementById('scInstagram').value.trim(),
+      youtube: document.getElementById('scYoutube').value.trim(),
+      tiktok: document.getElementById('scTiktok').value.trim(),
     }, {merge:true});
     setMsg(msg,'تم الحفظ بنجاح', true);
   }catch(err){ setMsg(msg,'حصل خطأ، حاول تاني'); }

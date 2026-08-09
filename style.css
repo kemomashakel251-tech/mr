@@ -135,7 +135,10 @@ header.site-nav{
   }
   .nav-links.open{transform:translateY(0); opacity:1;}
   .nav-toggle{display:block;}
-  .nav-cta .btn-ghost{display:none;}
+  .nav-cta{gap:8px;}
+  /* زرار "دخول" بس هو اللي بيتخفي على الموبايل، مش زرار لوحتي/خروج الخاصين بالطالب المسجل */
+  .nav-cta [data-guest-only].btn-ghost{display:none;}
+  .nav-cta [data-user-only].btn-ghost{padding:8px 12px; font-size:.78rem;}
 }
 
 /* ---------- Hero ---------- */

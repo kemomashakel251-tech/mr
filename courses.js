@@ -12,7 +12,20 @@ async function loadSiteContent(){
     setText('stat1Num', d.stat1Num); setText('stat1Label', d.stat1Label);
     setText('stat2Num', d.stat2Num); setText('stat2Label', d.stat2Label);
     setText('stat3Num', d.stat3Num); setText('stat3Label', d.stat3Label);
+    setText('footerDesc', d.footerDesc);
+    if(d.whatsapp){
+      const wa = document.getElementById('whatsappLink');
+      if(wa) wa.href = 'https://wa.me/' + d.whatsapp;
+    }
+    setLink('socialFacebook', d.facebook);
+    setLink('socialInstagram', d.instagram);
+    setLink('socialYoutube', d.youtube);
+    setLink('socialTiktok', d.tiktok);
   }catch(err){ console.warn('site content:', err.message); }
+}
+function setLink(id, url){
+  const el = document.getElementById(id);
+  if(el && url){ el.href = url; el.classList.remove('hidden'); }
 }
 function setText(id, val){
   const el = document.getElementById(id);
@@ -69,6 +82,7 @@ async function loadTeachers(){
           <div class="teacher-avatar">${escapeHtml((t.name||'م').trim()[0])}</div>
           <h3>${escapeHtml(t.name)}</h3>
           <p>${escapeHtml(t.subject || '')}</p>
+          ${t.bio ? `<p style="font-size:.82rem;color:var(--paper-dim);margin-top:6px">${escapeHtml(t.bio)}</p>` : ''}
         </div>
       `);
     });
