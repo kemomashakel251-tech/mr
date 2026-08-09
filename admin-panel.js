@@ -32,6 +32,7 @@ auth.onAuthStateChanged(async (user)=>{
       return;
     }
     loginScreen.style.display = 'none';
+    adminApp.classList.remove('hidden');
     adminApp.style.display = 'flex';
     initAdminApp();
   }catch(err){
